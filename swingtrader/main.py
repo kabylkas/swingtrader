@@ -3,7 +3,7 @@
 import finviz
 
 def main():
-    a = finviz.Finviz()
-    print(a.GetCurrentPrice("AMD"))
+    finviz_api = finviz.Finviz()
+    print(finviz_api.GetCurrentPrice("AMD"))
 
 main()
