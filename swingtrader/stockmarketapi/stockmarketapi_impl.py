@@ -6,10 +6,10 @@ import requests
 from bs4 import BeautifulSoup
 
 # Local packages.
-import finviz.constants as constants
+import stockmarketapi.constants as constants
 
 # Helper functions.
-def get_content(url):
+def GetContent(url):
     req = requests.get(url, headers = constants.kHtmlHeader)
     soup = BeautifulSoup(req.content, 'html.parser')
     return soup
@@ -17,7 +17,7 @@ def get_content(url):
 # Implementation methods of the API.
 def GetCurrentPrice(ticker):
     url = constants.kFinvizQuoteUrl.format(ticker)
-    soup = get_content(url)
+    soup = GetContent(url)
     all_content = soup.find("div", { "data-testid": "quote-data-content" })
     table_content = all_content.find_all("td")
 
