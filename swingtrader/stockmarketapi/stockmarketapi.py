@@ -5,6 +5,11 @@ import stockmarketapi.stockmarketapi_impl as impl
 class Stock:
     def __init__(self, ticker):
         self.ticker = ticker
+        self.price = 0
+        self.roic = 0.0
 
     def GetCurrentPrice(self):
         return impl.GetCurrentPrice(self.ticker)
+
+    def GetROIC(self):
+        return impl.GetROIC(self.ticker)

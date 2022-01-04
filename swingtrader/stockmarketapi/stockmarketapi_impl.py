@@ -36,3 +36,16 @@ def GetCurrentPrice(ticker):
     price = parse_stage_2[0]
 
     return float(price)
+
+def GetROIC(ticker):
+    url = constants.kGuruFocusRoicUrl.format(ticker)
+    soup = GetContent(url)
+    roic_div = soup.find("div", { "id": "target_def_description" })
+    strongs = roic_div.find_all("strong")
+
+    strong = "{}".format(strongs[3])
+    parse_stage_1 = strong.split("<strong>")
+    parse_stage_2 = parse_stage_1[1].split("%")
+    roic = parse_stage_2[0]
+
+    return float(roic)
