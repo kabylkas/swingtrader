@@ -13,3 +13,10 @@ class Stock:
 
     def GetROIC(self):
         return impl.GetROIC(self.ticker)
+
+class Market:
+    def __init__(self):
+        self.all_tickers = []
+
+    def LoadMarket(self):
+        self.all_tickers = impl.LoadMarket()

@@ -3,8 +3,7 @@
 import stockmarketapi
 
 def main():
-    amd_stock = stockmarketapi.Stock("FB")
-    print(amd_stock.GetCurrentPrice())
-    print(amd_stock.GetROIC())
+    market = stockmarketapi.Market()
+    market.LoadMarket()
 
 main()

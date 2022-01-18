@@ -49,3 +49,44 @@ def GetROIC(ticker):
     roic = parse_stage_2[0]
 
     return float(roic)
+
+def LoadMarket():
+    print("Loading market...")
+    market_tickers = []    
+    url = constants.kFinvizEmptyScreenerUrl
+    next_found = True
+    pages_parsed = 0
+    while next_found:
+        print("Parsing {}".format(url))
+        soup = GetContent(url)
+
+        # Get the anchor that links to the next page.
+        all_links = soup.find_all("a", { "class" : "tab-link"})
+        next_found = False
+        for link in all_links:
+            string_link = "{}".format(link)
+            if "next" in string_link:
+                next_found = True
+                s = string_link.split("\"")
+                save_link = s[3]
+                save_link = save_link.replace("&amp;", "&")
+
+        if next_found:
+            url = "https://finviz.com/{}".format(save_link)
+
+        # Get the tickers.
+        screener_content_div = soup.find("div", { "id" : "screener-content"} )
+        ticker_links = screener_content_div.find_all("a", { "class" : "screener-link-primary"})
+        for link in ticker_links:
+            string_link = "{}".format(link)
+            s_0 = string_link.split("?t=")
+            s_1 = s_0[1].split("&")[0]
+            market_tickers.append(s_1)
+
+        # Increment the count.
+        pages_parsed += 1
+
+        
+    print("Pages parsed: {}".format(pages_parsed + 1))
+    print(market_tickers)
+    return market_tickers
